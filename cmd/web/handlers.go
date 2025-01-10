@@ -4,7 +4,7 @@ import (
   "errors"
   "fmt"
   "net/http"
-  // "html/template"
+  "html/template"
   "strconv"
 
   "github.com/Michael-cmd-sys/snipbox/internal/models"
@@ -26,21 +26,21 @@ func (app *application) home(w http.ResponseWriter, r *http.Request){
     fmt.Fprintf(w, "%+v\n", snippet)
   }
 
-  // files := []string{
-  //   "./ui/html/base.tmpl.html",
-  //   "./ui/html/pages/home.tmpl.html",
-  //   "ui/html/partials/nav.tmpl.html",
-  // }
+  files := []string{
+    "./ui/html/base.tmpl.html",
+    "./ui/html/pages/home.tmpl.html",
+    "ui/html/partials/nav.tmpl.html",
+  }
 
-  // ts, err := template.ParseFiles(files...);
-  // if err != nil {
-  //   app.serverError(w, err);
-  // }
+  ts, err := template.ParseFiles(files...);
+  if err != nil {
+    app.serverError(w, err);
+  }
 
-  // err = ts.ExecuteTemplate(w, "base", nil);
-  // if err != nil {
-  //   app.serverError(w, err);
-  // }
+  err = ts.ExecuteTemplate(w, "base", nil);
+  if err != nil {
+    app.serverError(w, err);
+  }
 }
 
 func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
@@ -60,7 +60,24 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  fmt.Fprintf(w, "%+V", snippet);
+  files := []string{
+    "./ui/html/base.tmpl.html",
+    "./ui/html/partials/nav.tmpl.html",
+    "./ui/html/pages/view.tmpl.html",
+  }
+
+  ts, err := template.ParseFiles(files...)
+  if err != nil {
+    app.serverError(w, err)
+    return
+  }
+
+  err = ts.ExecuteTemplate(w, "base", snippet)
+  if err != nil {
+    app.serverError(w, err)
+  }
+
+  fmt.Fprintf(w, "%+v", snippet);
 }
 
 func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
