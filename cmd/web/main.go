@@ -34,10 +34,12 @@ func main(){
   if err != nil {
     errorLog.Fatal(err)
   }
-
   defer db.Close()
 
   templateCache, err := newTemplateCache()
+  if err != nil {
+    errorLog.Fatal(err)
+  }
 
   app := &application{
     errorLog: errorLog,
