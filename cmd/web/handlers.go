@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-  "strings"
-  "unicode/utf8"
 
 	"github.com/Michael-cmd-sys/snipbox/internal/models"
   "github.com/Michael-cmd-sys/snipbox/internal/validator"
@@ -16,12 +14,12 @@ import (
 
 
 type snippetCreateForm struct {
-  FieldErrors map[string]string
-  validator.Validator
-  Title string
-  Content string
-  Expires int
+  validator.Validator `form:"-"`
+  Title string `form:"title"`
+  Content string `form:"content"`
+  Expires int `form:"expires"`
 }
+
 func (app *application) home(w http.ResponseWriter, r *http.Request){
   if r.URL.Path != "/" { 
     app.notFound(w);
@@ -81,16 +79,12 @@ func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request
     return 
   }
 
-  expires, err := strconv.Atoi(r.PostForm.Get("expires"))
+  var form snippetCreateForm
+
+  err = app.formDecoder.Decode(&form, r.PostForm)
   if err != nil {
     app.clientError(w, http.StatusBadRequest)
     return
-  }
-
-  form := snippetCreateForm{
-    Title: r.PostForm.Get("title"),
-    Content: r.PostForm.Get("content"),
-    Expires: expires,
   }
 
   form.CheckField(validator.NotBlank(form.Title), "title", "This field cannot be blank.")
@@ -105,7 +99,7 @@ func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request
     return
   }
 
-  id , err := app.snippets.Insert(form.Title, form.Content, expires)
+  id , err := app.snippets.Insert(form.Title, form.Content, form.Expires)
   if err != nil {
     app.serverError(w, err)
     return
