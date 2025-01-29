@@ -20,6 +20,25 @@ type snippetCreateForm struct {
   Expires int `form:"expires"`
 }
 
+func (app *application) userSignup(w http.ResponseWriter, r *http.Request) {
+  fmt.Println(w, "Display HTML for signing up a new user ...")
+}
+
+func (app *application) userSignupPost(w http.ResponseWriter, r *http.Request) {
+  fmt.Println(w, "Create a new user account ...")
+}
+
+func (app *application) userLogin(w http.ResponseWriter, r *http.Request) {
+  fmt.Println(w, "Display HTML for logging in a user ...")
+}
+
+func (app *application) userLoginPost (w http.ResponseWriter, r *http.Request) {
+  fmt.Println(w, "Authenticate and log in user ...")
+}
+
+func (app *application) userLogoutPost (w http.ResponseWriter, r *http.Request) {
+  fmt.Println(w, "Logout the user ...")
+}
 func (app *application) home(w http.ResponseWriter, r *http.Request){
   if r.URL.Path != "/" { 
     app.notFound(w);
