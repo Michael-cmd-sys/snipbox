@@ -12,7 +12,7 @@
         <div>
             <label for="email">Email:</label>
             {{with .Form.FieldErrors.email}}
-                <label>{{.}}</label>
+                <label class="error">{{.}}</label>
             {{end}}
             <input type="email" name="email" id="email" value="{{.Form.Email}}" />
         </div>
