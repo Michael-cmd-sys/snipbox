@@ -27,6 +27,18 @@ type userSignupForm struct {
   validator.Validator `form:"-"`
 }
 
+type userLoginForm struct {
+  Email string `form:"email"`
+  Password string `form:"password"`
+  validator.Validator `form:"-"`
+}
+
+func (app *application) userLogin(w http.ResponseWriter, r *http.Request) {
+  data := app.newTemplateData(r)
+  data.Form = userLoginForm{}
+  app.render(w, http.StatusOK, "login.tmpl.html", data)
+}
+
 func (app *application) userSignup(w http.ResponseWriter, r *http.Request) {
   data := app.newTemplateData(r)
   data.Form = userSignupForm{}
