@@ -85,10 +85,6 @@ func (app *application) userSignupPost(w http.ResponseWriter, r *http.Request) {
   http.Redirect(w, r, "/user/login", http.StatusSeeOther)
 }
 
-func (app *application) userLogin(w http.ResponseWriter, r *http.Request) {
-  fmt.Println(w, "Display HTML for logging in a user ...")
-}
-
 func (app *application) userLoginPost (w http.ResponseWriter, r *http.Request) {
   fmt.Println(w, "Authenticate and log in user ...")
 }
