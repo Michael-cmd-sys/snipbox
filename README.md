@@ -8,3 +8,7 @@ A simple web app implementation written in golang from the book "let's go"  to b
 - (Installation and Environmental Setup)[]
 - (Additional Resources)[]
 - (Code Features and Capabilities)[]
+
+## TODO
+
+Fix signup and signin pages error
