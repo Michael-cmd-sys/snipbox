@@ -6,9 +6,10 @@ A simple web app implementation written in golang from the book "let's go"  to b
 
 - (Introduction)[]
 - (Installation and Environmental Setup)[]
-- (Additional Resources)[]
 - (Code Features and Capabilities)[]
+- (Additional Resources)[]
 
 ## TODO
 
-Fix signup and signin pages error
+- [ ] Fix signup and signin pages error
+- [ ] Going on a bit of a holiday here. Have to solve mysql not creatign socket file first before contintuing with project.
